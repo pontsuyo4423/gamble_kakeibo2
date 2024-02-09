@@ -1,4 +1,4 @@
-class Income < ApplicationRecord
+class Payment < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
   belongs_to_active_hash :category
@@ -7,4 +7,3 @@ class Income < ApplicationRecord
   validates :price, presence: true
   validates :date, presence: true
 end
-

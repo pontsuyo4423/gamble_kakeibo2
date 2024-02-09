@@ -1,14 +1,3 @@
-<h2>収入額の新規登録</h2>
+<h2>収入額の登録</h2>
 <p>勝った日を設定してください</p>
 
-<%= form_with model: @income, local: true do |f| %>
-  <%= raw sprintf(
-        f.date_select(
-          :date,
-          { class: 'date', id: "date", use_month_numbers: true, prompt: '--', start_year: Time.now.year-1, end_year: Time.now.year, date_separator: '%s' },
-          { class: 'form-control' }
-        ),
-        "<p> 年 </p>", "<p> 月 </p>") + "<p> 日 </p>"
-  %>
-  <%= f.submit "登録" %>
-<% end %>
