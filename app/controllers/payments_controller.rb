@@ -1,4 +1,6 @@
 class PaymentsController < ApplicationController
+  before_action :set_income, only: [:edit, :update]
+
   def index
   end
 
@@ -22,10 +24,24 @@ class PaymentsController < ApplicationController
     redirect_to incomes_path(selected_month: session[:selected_month])
   end
 
+  def edit
+  end
+
+  def update
+    if @payment.update(payment_params) 
+      redirect_to incomes_path
+    else
+     render :edit
+    end
+  end
 
   private
 
   def payment_params
     params.require(:payment).permit(:category_id, :date, :price)
+  end
+
+  def set_income
+    @payment = current_user.payments.find(params[:id])
   end
 end

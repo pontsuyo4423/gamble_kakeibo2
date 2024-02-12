@@ -36,6 +36,7 @@
       <thead>
         <tr>
           <th>日付</th>
+          <th>項目</th>
           <th>収入</th>
           <th>操作</th>
         </tr>
@@ -44,6 +45,7 @@
         <% @incomes_by_date.each do |income| %>
           <tr>
             <td><%= income.date.strftime("%Y年%m月%d日") %></td>
+            <td><%= income.category.name %>
             <td><%= income.price %></td>
             <td>
               <%= link_to "編集", edit_income_path(income) %>
@@ -61,6 +63,7 @@
       <thead>
         <tr>
           <th>日付</th>
+          <th>項目</th>
           <th>支出</th>
           <th>操作</th>
         </tr>
@@ -69,6 +72,7 @@
         <% @payments_by_date.each do |payment| %>
           <tr>
             <td><%= payment.date.strftime("%Y年%m月%d日") %></td>
+            <td><%= payment.category.name%>
             <td><%= payment.price %></td>
             <td>
               <%= link_to "編集", edit_payment_path(payment) %>

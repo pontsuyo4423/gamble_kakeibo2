@@ -1,5 +1,6 @@
 class IncomesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_income, only: [:edit, :update]
 
   def index
     available_income_months = current_user.incomes.group_by_month(:date, format: "%Y年%m月").count.keys
@@ -67,6 +68,11 @@ class IncomesController < ApplicationController
   
 
   def update
+   if @income.update(income_params) 
+     redirect_to incomes_path
+   else
+    render :edit
+   end
   end
 
   def destroy
@@ -83,5 +89,8 @@ class IncomesController < ApplicationController
     params.require(:income).permit(:category_id, :date, :price)
   end
   
+  def set_income
+    @income = current_user.incomes.find(params[:id])
+  end
   
 end
