@@ -10,10 +10,12 @@
   </div>
 <% end %>
 
-<h2>収入額の新規登録</h2>
+<h2>支出額の新規登録</h2>
+<%= link_to 'ホーム', root_path %>
 <p>負けた日を設定してください</p>
 
-<%= form_with model: @income, local: true, data: {turbo: false} do |f| %>
+
+<%= form_with model: @payment, local: true, data: {turbo: false} do |f| %>
   <%= raw sprintf(
         f.date_select(
           :date,

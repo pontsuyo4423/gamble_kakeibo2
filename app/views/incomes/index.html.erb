@@ -1,3 +1,24 @@
-<h2>収入額の登録</h2>
-<p>勝った日を設定してください</p>
+<h1>月毎の収支</h1>
+<%= link_to 'ホーム', root_path %>
+<table>
+  <thead>
+    <tr>
+      <th>月</th>
+      <th>収入</th>
+      <th>支出</th>
+      <th>収支</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @monthly_balances.each do |month, balance| %>
+      <tr>
+        <td><%= month %></td>
+        <td><%= @monthly_incomes[month] || 0 %></td>
+        <td><%= @monthly_payments[month] || 0 %></td>
+        <td><%= balance %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 

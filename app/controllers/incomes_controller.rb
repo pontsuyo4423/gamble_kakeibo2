@@ -3,6 +3,9 @@ class IncomesController < ApplicationController
 
   def index
     @incomes = Income.all
+    @monthly_incomes = Income.group_by_month(:date, format: "%Y年%m月").sum(:price)
+    @monthly_payments = Payment.group_by_month(:date, format: "%Y年%m月").sum(:price)
+    @monthly_balances = @monthly_incomes.merge(@monthly_payments) { |key, incomes, payments| incomes - payments }
   end
 
   def show

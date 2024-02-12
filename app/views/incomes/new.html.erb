@@ -11,7 +11,9 @@
 <% end %>
 
 <h2>収入額の新規登録</h2>
+<%= link_to 'ホーム', root_path %>
 <p>勝った日を設定してください</p>
+
 
 <%= form_with model: @income, local: true, data: {turbo: false} do |f| %>
   <%= raw sprintf(
