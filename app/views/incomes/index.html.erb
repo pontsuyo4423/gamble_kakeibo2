@@ -1,0 +1,93 @@
+<h1>月毎の収支</h1>
+<%= link_to 'ホーム', root_path %>
+
+<%= form_tag(incomes_path, method: :get) do %>
+  <%= select_tag :selected_month, options_for_select(@available_months), prompt: '月を選択' %>
+  <%= submit_tag '表示' %>
+<% end %>
+
+<!-- 日毎の収支テーブル -->
+<% if params[:selected_month].present? %>
+  <!-- 選択された月の月毎の収支テーブル -->
+  <h2><%= params[:selected_month] %> の収支概要</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>月</th>
+        <th>収入</th>
+        <th>支出</th>
+        <th>収支</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= params[:selected_month] %></td>
+        <td><%= @monthly_incomes_summary[params[:selected_month]] || 0 %></td>
+        <td><%= @monthly_payments_summary[params[:selected_month]] || 0 %></td>
+        <td><%= @monthly_balances_summary[params[:selected_month]] || 0 %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 選択された月の日毎の収支テーブル -->
+  <% if params[:selected_month].present? %>
+    <h3><%= params[:selected_month] %> の日毎の収入</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>日付</th>
+          <th>項目</th>
+          <th>収入</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @incomes_by_date.each do |income| %>
+          <tr>
+            <td><%= income.date.strftime("%Y年%m月%d日") %></td>
+            <td><%= income.category.name %>
+            <td><%= income.price %></td>
+            <td>
+              <%= link_to "編集", edit_income_path(income) %>
+              <%= link_to "削除", income_path(income), data: {turbo_method: :delete } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if params[:selected_month].present? %>
+    <h3><%= params[:selected_month] %> の日毎の支出</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>日付</th>
+          <th>項目</th>
+          <th>支出</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payments_by_date.each do |payment| %>
+          <tr>
+            <td><%= payment.date.strftime("%Y年%m月%d日") %></td>
+            <td><%= payment.category.name%>
+            <td><%= payment.price %></td>
+            <td>
+              <%= link_to "編集", edit_payment_path(payment) %>
+              <%= link_to "削除", payment_path(payment), data: { confirm: '本当に削除しますか？', turbo_method: :delete } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+<% end %>
+
+
+
+
+
+

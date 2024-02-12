@@ -1,0 +1,33 @@
+<% if @payment.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this income from being saved:</h2>
+
+    <ul>
+    <% @payment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h2>支出額の新規登録</h2>
+<%= link_to 'ホーム', root_path %>
+<p>負けた日を設定してください</p>
+
+
+<%= form_with model: @payment, local: true, data: {turbo: false} do |f| %>
+  <%= raw sprintf(
+        f.date_select(
+          :date,
+          { class: 'date', id: "date", use_month_numbers: true, prompt: '--', start_year: Time.now.year-1, end_year: Time.now.year, date_separator: '%s' },
+          { class: 'form-control' }
+        ),
+        "年", "月") + "日"
+  %>
+  <p>なにで負けましたか？</p>
+  <%= f.collection_select(:category_id, Category.all, :id, :name, {},) %>
+
+  <p>いくら負けましたか？</p>
+  <%= f.text_field :price %>円
+  <%= f.submit "登録" %>
+<% end %>
