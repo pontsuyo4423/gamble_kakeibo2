@@ -1,0 +1,14 @@
+<h1>収入の詳細</h1>
+
+<p>
+  <strong>日付:</strong>
+  <%= @income.date %>
+</p>
+
+<p>
+  <strong>金額:</strong>
+  <%= @income.price %>
+</p>
+
+<%= link_to '編集', edit_income_path(@income) %> |
+<%= link_to '一覧に戻る', incomes_path %>

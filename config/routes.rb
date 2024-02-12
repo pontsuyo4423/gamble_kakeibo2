@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   get 'payments/new'
   devise_for :users
   root 'top#index'
-  resources :incomes
-  resources :payments
+  resources :incomes, except: [:show]
+  resources :payments, except: [:show]
 end

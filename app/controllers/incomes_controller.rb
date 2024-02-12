@@ -11,7 +11,10 @@ class IncomesController < ApplicationController
     @monthly_payments_summary = current_user.payments.group_by_month(:date, format: "%Y年%m月").sum(:price)
     @monthly_balances_summary = @monthly_incomes_summary.merge(@monthly_payments_summary) { |key, incomes, payments| incomes - payments }
     
-    # 日毎の収支変数を空のハッシュで初期化
+    # 日毎の収支変数を空のActiveRecord_Relationで初期化
+    @incomes_by_date = Income.none
+    @payments_by_date = Payment.none
+  
     @daily_incomes = {}
     @daily_payments = {}
     @daily_balances = {}
@@ -20,7 +23,15 @@ class IncomesController < ApplicationController
       selected_month = Date.strptime(params[:selected_month], "%Y年%m月")
       start_date = selected_month.beginning_of_month
       end_date = selected_month.end_of_month
-
+      session[:selected_month] = params[:selected_month]
+    elsif session[:selected_month].present?
+      selected_month = Date.strptime(session[:selected_month], "%Y年%m月")
+      start_date = selected_month.beginning_of_month
+      end_date = selected_month.end_of_month
+      params[:selected_month] = session[:selected_month]
+    end
+  
+    if selected_month.present?
       @incomes_by_date = current_user.incomes.where(date: start_date..end_date).order(:date)
       @payments_by_date = current_user.payments.where(date: start_date..end_date).order(:date)
   
@@ -32,7 +43,6 @@ class IncomesController < ApplicationController
   end
   
   
-
   def show
   end
 
@@ -47,7 +57,7 @@ class IncomesController < ApplicationController
     @income = Income.new(income_params)
     @income.user = current_user
     if @income.save
-      redirect_to root_path, notice: '収入を登録しました。'
+      redirect_to root_path
     else
       render :new
     end
@@ -60,8 +70,11 @@ class IncomesController < ApplicationController
   end
 
   def destroy
-    
+    income = Income.find(params[:id])
+    income.destroy
+    redirect_to incomes_path(selected_month: session[:selected_month])
   end
+  
  
 
   private

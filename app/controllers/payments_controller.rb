@@ -16,6 +16,12 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def destroy
+    payment = Payment.find(params[:id])
+    payment.destroy
+    redirect_to incomes_path(selected_month: session[:selected_month])
+  end
+
 
   private
 
