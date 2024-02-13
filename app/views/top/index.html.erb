@@ -1,11 +1,14 @@
 <%= render 'shared/header' %>
 
-<%#ユーザー管理機能%>
-
-<ul>
-  <% if user_signed_in? %>
-    <li><%= link_to '勝ったときはこちら', new_income_path %></li>
-    <li><%= link_to '負けたときはこちら', new_payment_path %></li>
-    <li><%= link_to '収支', incomes_path %></li>
-  <% end %>
-</ul>
+<div class="background-image">
+  <%= image_tag "keiba.png" ,class:"background"%>
+  <div class="content">
+    <ul class="user-links">
+      <% if user_signed_in? %>
+        <li><%= link_to '勝ったときはこちら', new_income_path, class: "win-btn" %></li>
+        <li><%= link_to '負けたときはこちら', new_payment_path, class: "lose-btn" %></li>
+        <li><%= link_to '収支', incomes_path, class: "balance-btn" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
