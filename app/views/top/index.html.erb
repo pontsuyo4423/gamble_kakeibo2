@@ -5,8 +5,9 @@
   <div class="content">
     <ul class="user-links">
       <% if user_signed_in? %>
-        <li><%= link_to '勝ったときはこちら', new_income_path, class: "win-btn" %></li>
-        <li><%= link_to '負けたときはこちら', new_payment_path, class: "lose-btn" %></li>
+        <li><%= link_to 'STEP1:金額設定', new_limit_path, class: "limit-btn" %></li>
+        <li><%= link_to 'STEP2:投資額の登録', new_payment_path, class: "lose-btn" %></li>
+        <li><%= link_to 'STEP3:回収金額の登録', new_income_path, class: "win-btn" %></li>
         <li><%= link_to '収支', incomes_path, class: "balance-btn" %></li>
       <% end %>
     </ul>

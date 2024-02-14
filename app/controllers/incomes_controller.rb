@@ -3,6 +3,8 @@ class IncomesController < ApplicationController
   before_action :set_income, only: [:edit, :update]
 
   def index
+    @limit = current_user.limit
+
     available_income_months = current_user.incomes.group_by_month(:date, format: "%Y年%m月").count.keys
     available_payment_months = current_user.payments.group_by_month(:date, format: "%Y年%m月").count.keys
     @available_months = (available_income_months + available_payment_months).uniq.sort.reverse

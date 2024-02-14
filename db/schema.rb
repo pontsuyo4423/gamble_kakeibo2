@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_09_073434) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_14_024503) do
   create_table "incomes", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "price", null: false
@@ -19,6 +19,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_073434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_incomes_on_user_id"
+  end
+
+  create_table "limits", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "goal", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_limits_on_user_id"
   end
 
   create_table "payments", charset: "utf8", force: :cascade do |t|
@@ -46,5 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_073434) do
   end
 
   add_foreign_key "incomes", "users"
+  add_foreign_key "limits", "users"
   add_foreign_key "payments", "users"
 end

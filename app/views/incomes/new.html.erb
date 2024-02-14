@@ -15,9 +15,9 @@
       </div>
     <% end %>
 
-    <h2>収入額の新規登録</h2>
+    <h2>回収金額の新規登録</h2>
     <%= link_to 'ホーム', root_path %>
-    <p>勝った日を設定してください</p>
+    <p>日を設定してください</p>
 
     <%= form_with model: @income, local: true, data: { turbo: false } do |f| %>
       <%= raw sprintf(
@@ -28,10 +28,10 @@
             ),
             "年", "月") + "日"
       %>
-      <p>なにで勝ちましたか？</p>
+      <p>項目を選んでください</p>
       <%= f.collection_select(:category_id, Category.all, :id, :name, {}, { class: 'category-select' }) %>
 
-      <p>いくら勝ちましたか？</p>
+      <p>回収金額を入力してください</p>
       <%= f.text_field :price, class: 'price-input' %>円
       <%= f.submit "登録", class: 'submit-btn' %>
     <% end %>

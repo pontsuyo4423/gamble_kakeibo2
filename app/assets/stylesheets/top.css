@@ -9,10 +9,14 @@
 
 .content {
   position: absolute;
+  margin-top: 90px;
+  text-align: center;
+  overflow: auto;
+  padding: 20px;
+  max-height: 80vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
 }
 
 .user-links {
@@ -24,12 +28,12 @@
   margin-bottom: 20px; 
 }
 
-.win-btn, .lose-btn, .balance-btn{
+.win-btn, .lose-btn, .balance-btn, .limit-btn{
   color: black;
   text-decoration: none;
   font-size: 40px;
 }
 
-.win-btn:hover, .lose-btn:hover, .balance-btn:hover{
+.win-btn:hover, .lose-btn:hover, .balance-btn:hover, .limit-btn:hover{
   text-decoration: underline;
 }

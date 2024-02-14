@@ -1,0 +1,16 @@
+<%= render 'shared/header' %>
+
+<div class="background-image">
+  <%= image_tag "keiba.png", class: "background" %>
+  <div class="content">
+
+    <h2>月の上限金額の設定</h2>
+    <%= link_to 'ホーム', root_path %>
+
+    <%= form_with model: @limit, local: true, data: { turbo: false } do |f| %>
+      <p>月の投資額の上限はいくらに設定しますか？</p>
+      <%= f.text_field :goal, class: 'goal-input' %>円
+      <%= f.submit "更新", class: 'submit-btn' %>
+    <% end %>
+  </div>
+</div>

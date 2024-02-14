@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
   has_many :incomes
   has_many :payments
+  has_one :limit
 end

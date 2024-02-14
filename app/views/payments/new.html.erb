@@ -15,9 +15,9 @@
       </div>
     <% end %>
 
-    <h2>支出額の新規登録</h2>
+    <h2>投資額の新規登録</h2>
     <%= link_to 'ホーム', root_path %>
-    <p>負けた日を設定してください</p>
+    <p>日を設定してください</p>
 
     <%= form_with model: @payment, local: true, data: { turbo: false } do |f| %>
       <%= raw sprintf(
@@ -28,10 +28,10 @@
             ),
             "年", "月") + "日"
       %>
-      <p>なにで負けましたか？</p>
+      <p>なにに投資しましたか？</p>
       <%= f.collection_select(:category_id, Category.all, :id, :name, {},) %>
 
-      <p>いくら負けましたか？</p>
+      <p>いくら投資しましたか？</p>
       <%= f.text_field :price %>円
       <%= f.submit "登録" %>
     <% end %>
