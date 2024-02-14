@@ -1,93 +1,114 @@
-<h1>月毎の収支</h1>
-<%= link_to 'ホーム', root_path %>
+<%= render 'shared/header' %>
 
-<%= form_tag(incomes_path, method: :get) do %>
-  <%= select_tag :selected_month, options_for_select(@available_months), prompt: '月を選択' %>
-  <%= submit_tag '表示' %>
-<% end %>
+<div class="background-image">
+  <%= image_tag "keiba.png", class: "background" %>
+  <div class="content">
+    <h1>月毎の収支</h1>
+    <%= link_to 'ホーム', root_path %>
 
-<!-- 日毎の収支テーブル -->
-<% if params[:selected_month].present? %>
-  <!-- 選択された月の月毎の収支テーブル -->
-  <h2><%= params[:selected_month] %> の収支概要</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>月</th>
-        <th>収入</th>
-        <th>支出</th>
-        <th>収支</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= params[:selected_month] %></td>
-        <td><%= @monthly_incomes_summary[params[:selected_month]] || 0 %></td>
-        <td><%= @monthly_payments_summary[params[:selected_month]] || 0 %></td>
-        <td><%= @monthly_balances_summary[params[:selected_month]] || 0 %></td>
-      </tr>
-    </tbody>
-  </table>
+    <%= form_tag(incomes_path, method: :get) do %>
+      <%= select_tag :selected_month, options_for_select(@available_months), prompt: '月を選択' %>
+      <%= submit_tag '表示' %>
+    <% end %>
 
-  <!-- 選択された月の日毎の収支テーブル -->
-  <% if params[:selected_month].present? %>
-    <h3><%= params[:selected_month] %> の日毎の収入</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>日付</th>
-          <th>項目</th>
-          <th>収入</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @incomes_by_date.each do |income| %>
-          <tr>
-            <td><%= income.date.strftime("%Y年%m月%d日") %></td>
-            <td><%= income.category.name %>
-            <td><%= income.price %></td>
-            <td>
-              <%= link_to "編集", edit_income_path(income) %>
-              <%= link_to "削除", income_path(income), data: {turbo_method: :delete } %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+    <% if params[:selected_month].present? %>
+      <h2><%= params[:selected_month] %> の収支概要</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>月</th>
+              <th>回収額(円)</th>
+              <th>投資額(円)</th>
+              <th>収支(円)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= params[:selected_month] %></td>
+              <td><%= @monthly_incomes_summary[params[:selected_month]] || 0 %></td>
+              <td><%= @monthly_payments_summary[params[:selected_month]] || 0 %></td>
+              <td><%= @monthly_balances_summary[params[:selected_month]] || 0 %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <% if params[:selected_month].present? %>
-    <h3><%= params[:selected_month] %> の日毎の支出</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>日付</th>
-          <th>項目</th>
-          <th>支出</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @payments_by_date.each do |payment| %>
-          <tr>
-            <td><%= payment.date.strftime("%Y年%m月%d日") %></td>
-            <td><%= payment.category.name%>
-            <td><%= payment.price %></td>
-            <td>
-              <%= link_to "編集", edit_payment_path(payment) %>
-              <%= link_to "削除", payment_path(payment), data: { confirm: '本当に削除しますか？', turbo_method: :delete } %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+      <h3><%= params[:selected_month] %> の回収額一覧</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>項目</th>
+              <th>回収額(円)</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @incomes_by_date.each do |income| %>
+              <tr>
+                <td><%= income.date.strftime("%Y年%m月%d日") %></td>
+                <td><%= income.category.name %></td>
+                <td><%= income.price %></td>
+                <td>
+                  <%= link_to "編集", edit_income_path(income) %>
+                  <%= link_to "削除", income_path(income), data: { turbo_method: :delete }, class: 'delete-link' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
-<% end %>
-
-
-
-
-
-
+      <h3><%= params[:selected_month] %> の投資額一覧</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>項目</th>
+              <th>投資額(円)</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @payments_by_date.each do |payment| %>
+              <tr>
+                <td><%= payment.date.strftime("%Y年%m月%d日") %></td>
+                <td><%= payment.category.name %></td>
+                <td><%= payment.price %></td>
+                <td>
+                  <%= link_to "編集", edit_payment_path(payment) %>
+                  <%= link_to "削除", payment_path(payment), data: { confirm: '本当に削除しますか？', turbo_method: :delete }, class: 'delete-link' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+    <% balance = @monthly_balances_summary[params[:selected_month]]||0%>
+      <h3>現状</h3>
+    <% if balance > 0 %>
+      <p>※※勝っていますが、ハマりすぎには注意しましょう！※※</p>
+    <% elsif balance < 0 %>
+      <p>※※負けていますね、これを機に辞めてはいかがですか？※※</p>
+    <% else %>
+      <p>※※まだ負けていない今が辞めどきだと思いますよ！※※</p>
+    <% end %>
+    <h3>あなたへのメッセージ</h3>
+    <% if @limit.present? %>
+      <% remaining_budget = @limit.goal - (@monthly_payments_summary[params[:selected_month]] || 0) %>
+      <% if remaining_budget > 0 %>
+        <p>予算内で楽しめていますね</p>
+      <% elsif remaining_budget < 0 %>
+        <p>予算を<%= remaining_budget.abs %>円オーバーしています！これ以上かけるのは控えましょう！</p>
+      <% else %>
+        <p>予算通りです。ここで終わりにしましょう</p>
+      <% end %>
+    <% else %>
+      <p>上限金額が設定されていません。</p>
+    <% end %>
+  </div>
+</div>
