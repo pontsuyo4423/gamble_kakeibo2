@@ -84,6 +84,11 @@ class IncomesController < ApplicationController
   end
   
  
+  def lifetime_balance
+    @total_incomes = current_user.incomes.sum(:price)
+    @total_payments = current_user.payments.sum(:price)
+    @lifetime_balance = @total_incomes - @total_payments
+  end
 
   private
 

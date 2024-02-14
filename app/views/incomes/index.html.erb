@@ -53,7 +53,7 @@
                 <td><%= income.price %></td>
                 <td>
                   <%= link_to "編集", edit_income_path(income) %>
-                  <%= link_to "削除", income_path(income), data: { turbo_method: :delete }, class: 'delete-link' %>
+                  <%= link_to "削除", income_path(income), method: :delete, data: { custom_confirm: '本当に削除しますか？', turbo_method: :delete }, class: 'delete-link' %>
                 </td>
               </tr>
             <% end %>
@@ -80,35 +80,35 @@
                 <td><%= payment.price %></td>
                 <td>
                   <%= link_to "編集", edit_payment_path(payment) %>
-                  <%= link_to "削除", payment_path(payment), data: { confirm: '本当に削除しますか？', turbo_method: :delete }, class: 'delete-link' %>
+                  <%= link_to "削除", payment_path(payment), method: :delete, data: { custom_confirm: '本当に削除しますか？', turbo_method: :delete }, class: 'delete-link' %>
                 </td>
               </tr>
             <% end %>
           </tbody>
         </table>
       </div>
-    <% end %>
-    <% balance = @monthly_balances_summary[params[:selected_month]]||0%>
-      <h3>現状</h3>
-    <% if balance > 0 %>
-      <p>※※勝っていますが、ハマりすぎには注意しましょう！※※</p>
-    <% elsif balance < 0 %>
-      <p>※※負けていますね、これを機に辞めてはいかがですか？※※</p>
-    <% else %>
-      <p>※※まだ負けていない今が辞めどきだと思いますよ！※※</p>
-    <% end %>
-    <h3>あなたへのメッセージ</h3>
-    <% if @limit.present? %>
-      <% remaining_budget = @limit.goal - (@monthly_payments_summary[params[:selected_month]] || 0) %>
-      <% if remaining_budget > 0 %>
-        <p>予算内で楽しめていますね</p>
-      <% elsif remaining_budget < 0 %>
-        <p>予算を<%= remaining_budget.abs %>円オーバーしています！これ以上かけるのは控えましょう！</p>
+      <% balance = @monthly_balances_summary[params[:selected_month]]||0%>
+        <h3>現状</h3>
+      <% if balance > 0 %>
+        <p>※※勝っていますが、ハマりすぎには注意しましょう！※※</p>
+      <% elsif balance < 0 %>
+        <p>※※負けていますね、これを機に辞めてはいかがですか？※※</p>
       <% else %>
-        <p>予算通りです。ここで終わりにしましょう</p>
+        <p>※※まだ負けていない今が辞めどきだと思いますよ！※※</p>
       <% end %>
-    <% else %>
-      <p>上限金額が設定されていません。</p>
+      <h3>あなたへのメッセージ</h3>
+      <% if @limit.present? %>
+        <% remaining_budget = @limit.goal - (@monthly_payments_summary[params[:selected_month]] || 0) %>
+        <% if remaining_budget > 0 %>
+          <p>予算内で楽しめていますね</p>
+        <% elsif remaining_budget < 0 %>
+          <p>予算を<%= remaining_budget.abs %>円オーバーしています！これ以上かけるのは控えましょう！</p>
+        <% else %>
+          <p>予算通りです。ここで終わりにしましょう</p>
+        <% end %>
+      <% else %>
+        <p>上限金額が設定されていません。</p>
+      <% end %>
     <% end %>
   </div>
 </div>
