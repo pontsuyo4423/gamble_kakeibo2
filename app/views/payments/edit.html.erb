@@ -17,6 +17,7 @@
 
     <h2>投資額の編集</h2>
     <%= link_to 'ホーム', root_path %>
+    <%= link_to '戻る', incomes_path %>
     <p>日を設定してください</p>
 
     <%= form_with model: @payment, local: true, data: { turbo: false } do |f| %>

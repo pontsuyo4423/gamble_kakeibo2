@@ -5,10 +5,13 @@
   <div class="content">
     <ul class="user-links">
       <% if user_signed_in? %>
-        <li><%= link_to 'STEP1:金額設定', new_limit_path, class: "limit-btn" %></li>
+        <li><%= link_to 'STEP1:上限金額設定', new_limit_path, class: "limit-btn" %></li>
         <li><%= link_to 'STEP2:投資額の登録', new_payment_path, class: "lose-btn" %></li>
         <li><%= link_to 'STEP3:回収金額の登録', new_income_path, class: "win-btn" %></li>
-        <li><%= link_to '収支', incomes_path, class: "balance-btn" %></li>
+        <li><%= link_to '月毎の収支', incomes_path, class: "balance-btn" %></li>
+        <li><%= link_to '生涯収支',lifetime_balance_path, class: "lifetime-btn" %></li>
+      <% else %>
+        <div class="not-log-in">ログインしていません。</div>
       <% end %>
     </ul>
   </div>

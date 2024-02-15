@@ -1,16 +1,7 @@
 <%= render 'shared/header' %>
 
-<h1>収入の詳細</h1>
-
-<p>
-  <strong>日付:</strong>
-  <%= @income.date %>
-</p>
-
-<p>
-  <strong>金額:</strong>
-  <%= @income.price %>
-</p>
-
-<%= link_to '編集', edit_income_path(@income) %> |
-<%= link_to '一覧に戻る', incomes_path %>
+<div class="background-image">
+  <%= image_tag "keiba.png", class: "background" %>
+  <div class="content">
+  </div>
+</div>

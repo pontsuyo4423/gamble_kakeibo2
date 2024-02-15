@@ -10,6 +10,7 @@
 ### Association
 has_many :incomes
 has_many :payments
+has_one :limit
 
 ## incomesテーブル
 
@@ -36,6 +37,18 @@ belongs_to :category, optional:true
 ### Association
 belongs_to :user
 belongs_to :category, optional:true
+
+
+## limitsテーブル
+
+| Column             | Type       | Options                      |
+| ------------------ | ---------- | ---------------------------- |
+| user               | references | null:false, foreign_key:true |
+| goal               | integer    | null:false                   |
+
+### Association
+belongs_to :user
+
 
 ## Categoriesテーブル
 
