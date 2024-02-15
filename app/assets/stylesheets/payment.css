@@ -1,0 +1,54 @@
+.error-explanation {
+  background-color: #ffdddd; /* エラーメッセージの背景色 */
+  border-left: 6px solid #f44336; /* 左側の赤いボーダー */
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.error-title, .form-title {
+  margin: 0 0 20px 0;
+  text-align: center;
+  color: #333;
+}
+
+.instruction-text, .category-instruction, .amount-instruction {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.date-select-container, .goal-input-container, .price-input-container, .category-select {
+  margin-bottom: 20px;
+}
+
+.form-control, .goal-input, .price-input, .category-select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50; /* ボタンの背景色 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #45a049; /* ホバー時のボタンの背景色 */
+}
+
+.home-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}

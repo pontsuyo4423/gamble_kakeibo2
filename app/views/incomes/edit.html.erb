@@ -4,36 +4,42 @@
   <%= image_tag "keiba.png", class: "background" %>
   <div class="content">
     <% if @income.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@income.errors.count, "error") %> prohibited this income from being saved:</h2>
+      <div class="error-explanation">
+        <h2 class="error-title"><%= pluralize(@income.errors.count, "error") %> prohibited this income from being saved:</h2>
 
-        <ul>
+        <ul class="error-list">
           <% @income.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+            <li class="error-item"><%= message %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
 
-    <h2>収入額の編集</h2>
-    <%= link_to 'ホーム', root_path %>
-    <%= link_to '戻る' ,incomes_path%>
-    <p>日を設定してください</p>
+    <h2 class="form-title">収入額の編集</h2>
+    <%= link_to 'ホーム', root_path, class: 'home-link' %>
+    <%= link_to '戻る', incomes_path, class: 'home-link' %>
+    <p class="instruction-text">日を設定してください</p>
 
-    <%= form_with model: @income, local: true, data: { turbo: false } do |f| %>
-      <%= raw sprintf(
-            f.date_select(
-              :date,
-              { class: 'date', id: "date", use_month_numbers: true, prompt: '--', start_year: Time.now.year-1, end_year: Time.now.year, date_separator: '%s' },
-              { class: 'form-control' }
-            ),
-            "年", "月") + "日"
-      %>
-      <p>項目を選んでください</p>
-      <%= f.collection_select(:category_id, Category.all, :id, :name, {}, { class: 'category-select' }) %>
+    <%= form_with model: @income, local: true, data: { turbo: false }, class: 'income-form' do |f| %>
+      <div class="date-select-container">
+        <%= raw sprintf(
+              f.date_select(
+                :date,
+                { class: 'date-select', id: "date-select", use_month_numbers: true, prompt: '--', start_year: Time.now.year-1, end_year: Time.now.year, date_separator: '%s' },
+                { class: 'form-control' }
+              ),
+              "年", "月") + "日"
+        %>
+      </div>
+      <p class="category-instruction">項目を選んでください</p>
+      <div class="category-select-container">
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, { class: 'category-select' }) %>
+      </div>
 
-      <p>回収金額を設定してください</p>
-      <%= f.text_field :price, class: 'price-input' %>円
+      <p class="amount-instruction">回収金額を設定してください</p>
+      <div class="price-input-container">
+        <%= f.text_field :price, class: 'price-input' %>円
+      </div>
       <%= f.submit "更新", class: 'submit-btn' %>
     <% end %>
   </div>

@@ -2,14 +2,19 @@
 
 <div class="background-image">
   <%= image_tag "keiba.png", class: "background" %>
-  <div class="content">
-    <h2>月の上限金額の編集</h2>
-    <%= link_to 'ホーム', root_path %>
+  <div class="content-wrapper">
+    <h2 class="limit-edit-title">月の上限金額の編集</h2>
+    <%= link_to 'ホーム', root_path, class: 'home-link' %>
 
-    <%= form_with model: @limit, local: true, data: { turbo: false } do |f| %>
-      <p>月の投資額の上限を更新してください</p>
-      <%= f.text_field :goal, class: 'goal-input' %>円
-      <%= f.submit "更新", class: 'submit-btn' %>
-    <% end %>
+    <div class="limit-form-container">
+      <%= form_with model: @limit, local: true, data: { turbo: false }, class: 'limit-form' do |f| %>
+        <p class="limit-form-instruction">月の投資額の上限を更新してください</p>
+        <div class="goal-input-container">
+          <%= f.text_field :goal, class: 'goal-input' %>円
+        </div>
+        <%= f.submit "更新", class: 'submit-btn' %>
+      <% end %>
+    </div>
   </div>
 </div>
+
