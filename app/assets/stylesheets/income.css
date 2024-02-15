@@ -1,4 +1,106 @@
+.monthly-balance-title,
+.balance-detail-title,
+.income-list-title,
+.payment-list-title {
+  color: #333;
+  margin-bottom: 15px;
+}
+
 .table-container {
-  max-height: 400px;
-  overflow-y: auto;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.summary-table,
+.income-table,
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table th,
+.income-table th,
+.payment-table th,
+.summary-table td,
+.income-table td,
+.payment-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.summary-table th,
+.income-table th,
+.payment-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-link,
+.delete-link {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.edit-link {
+  background-color: #ffa500;
+}
+
+.edit-link:hover{
+  background-color: rgb(230, 162, 36);
+}
+
+.delete-link {
+  background-color: #f44336; 
+}
+.delete-link:hover{
+  background-color: #d85248;
+}
+
+.current-status p,
+.message-to-user p {
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.positive-balance {
+  background-color: #4CAF50;
+}
+
+.negative-balance,
+.over-budget {
+  background-color: #f44336;
+}
+
+.within-budget {
+  background-color: #4CAF50; 
+}
+
+.home-link {
+  display: inline-block;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.home-link:hover {
+  background-color: #0056b3;
+}
+
+/* コンテンツエリアのスタイル */
+.content {
+  background-color: rgba(255, 255, 255, 0.8); /* 軽い透明度で白背景 */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%; /* コンテンツの最大幅 */
+  margin: 20px;
 }
