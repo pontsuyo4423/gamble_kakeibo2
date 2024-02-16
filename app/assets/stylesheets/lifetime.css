@@ -16,9 +16,9 @@
 }
 
 .positive-balance-message {
-  background-color: green !important;
+  color: green !important;
 }
 
 .neutral-balance-message {
-  background-color: orange !important;
+  color: orange !important;
 }
