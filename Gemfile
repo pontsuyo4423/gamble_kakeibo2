@@ -76,3 +76,7 @@ gem 'devise'
 gem 'active_hash'
 gem 'chartkick'
 gem 'groupdate'
+
+group :production do
+  gem 'pg'
+end
