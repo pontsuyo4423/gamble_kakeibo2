@@ -8,12 +8,19 @@ class IncomesController < ApplicationController
     available_income_months = current_user.incomes.group_by_month(:date, format: "%Y年%m月").count.keys
     available_payment_months = current_user.payments.group_by_month(:date, format: "%Y年%m月").count.keys
     @available_months = (available_income_months + available_payment_months).uniq.sort.reverse
-    
+  
+    # 月毎の収入と支出の概要を確実にハッシュとして初期化
+    @monthly_incomes_summary = current_user.incomes.group_by_month(:date, format: "%Y年%m月").sum(:price) || {}
+    @monthly_payments_summary = current_user.payments.group_by_month(:date, format: "%Y年%m月").sum(:price) || {}
+  
     # 月毎の収支の概要を計算
-    @monthly_incomes_summary = current_user.incomes.group_by_month(:date, format: "%Y年%m月").sum(:price)
-    @monthly_payments_summary = current_user.payments.group_by_month(:date, format: "%Y年%m月").sum(:price)
-    @monthly_balances_summary = @monthly_incomes_summary.merge(@monthly_payments_summary) { |key, incomes, payments| incomes - payments }
-    
+    @monthly_balances_summary = {}
+    @available_months.each do |month|
+      incomes = @monthly_incomes_summary[month] || 0
+      payments = @monthly_payments_summary[month] || 0
+      @monthly_balances_summary[month] = incomes - payments
+    end
+      
     # 日毎の収支変数を空のActiveRecord_Relationで初期化
     @incomes_by_date = Income.none
     @payments_by_date = Payment.none
