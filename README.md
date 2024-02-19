@@ -8,7 +8,8 @@
 https://gamble-kakeibo.onrender.com
 
 ## テスト用アカウント
-アカウント名：Taro
+Basic認証パスワード：2222
+Basic認証ID：admin
 メールアドレス：b@b
 password：111111
 
